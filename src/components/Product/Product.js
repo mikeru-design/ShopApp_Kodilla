@@ -1,9 +1,9 @@
 import styles from "./Product.module.scss";
-import clsx from "clsx";
-import Button from "../Button/Button";
 import ProductImage from "../ProductImage/ProductImage"
-import ProductOptions from "../ProductOptions/ProductOptions"
+import ProductForm from "../ProductForm/ProductForm"
 import { useState } from "react";
+import PropTypes from 'prop-types';
+
 
 const Product = (props) => {
   const [currentColor, setCurrentColor] = useState(props.colors[0]);
@@ -47,7 +47,6 @@ const Product = (props) => {
     console.log(productSummaryString);
   }
 
-
   return (
     <article className={styles.product}>
       <ProductImage currentColor={currentColor} title={props.title} name={props.name} />
@@ -56,45 +55,19 @@ const Product = (props) => {
           <h2 className={styles.name}>{props.title}</h2>
           <span className={styles.price}>{price}$</span>
         </header>
-        <ProductOptions addProduct={addProduct} addActive={addActive} sizes={props.sizes} currentSize={currentSize} setPriceFunc={setPriceFunc} setCurrentSize={setCurrentSize} setCurrentColor={setCurrentColor} colors={props.colors} currentColor={currentColor}/>
-        {/* <form onSubmit={addProduct}>
-          ----------------------SIZES---------------------------
-          <div className={styles.sizes}>
-            <h3 className={styles.optionLabel}>Sizes</h3>
-            <ul className={styles.choices} onClick={addActive} >
-              {props.sizes.map(size =>
-                <li key={size.name}>
-                  <button type="button"
-                    className={clsx(size.name === currentSize && styles.active)}
-                    onClick={()=>{setPriceFunc(size.additionalPrice); setCurrentSize(size.name)}}>
-                    {size.name}
-                  </button>
-                </li>)
-              }
-            </ul>
-          </div>
-          ----------------------COLORS---------------------------
-          <div className={styles.colors}>
-            <h3 className={styles.optionLabel}>Colors</h3>
-            <ul className={styles.choices} onClick={addActive}>
-             {props.colors.map(color =>
-                <li key={color}>
-                  <button type="button"
-                    onClick={()=>{setCurrentColor(color)}}
-                    className={clsx(prepareColorClassName(color), color === currentColor && styles.active)}>
-                  </button>
-                </li>)
-              }
-            </ul>
-          </div>
-          <Button className={styles.button}>
-            <span className="fa fa-shopping-cart" />
-          </Button>
-        </form> */}
 
+        <ProductForm addProduct={addProduct} addActive={addActive} sizes={props.sizes} currentSize={currentSize} setPriceFunc={setPriceFunc} setCurrentSize={setCurrentSize} setCurrentColor={setCurrentColor} colors={props.colors} currentColor={currentColor}/>
       </div>
     </article>
   );
 };
+
+Product.propTypes = {
+  name: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  basePrice: PropTypes.number.isRequired,
+  colors: PropTypes.array.isRequired,
+  sizes: PropTypes.array.isRequired,
+}
 
 export default Product;

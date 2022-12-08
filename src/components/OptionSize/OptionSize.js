@@ -1,5 +1,7 @@
 import clsx from 'clsx';
 import styles from "./OptionSize.module.scss";
+import PropTypes from 'prop-types';
+
 
 const OptionSize = (props) => {
 
@@ -16,6 +18,14 @@ const OptionSize = (props) => {
       }
     </ul>
   )
+}
+
+OptionSize.propTypes = {
+  addActive: PropTypes.func.isRequired,
+  setPriceFunc: PropTypes.func.isRequired,
+  setCurrentSize: PropTypes.func.isRequired,
+  sizes: PropTypes.array.isRequired,
+  currentSize: PropTypes.string.isRequired,
 }
 
 export default OptionSize;
